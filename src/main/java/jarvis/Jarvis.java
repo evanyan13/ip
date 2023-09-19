@@ -4,6 +4,7 @@ import jarvis.commands.Command;
 import jarvis.exceptions.JarvisException;
 import jarvis.gui.Ui;
 import jarvis.parser.Parser;
+import jarvis.reminder.Reminder;
 import jarvis.storage.Storage;
 import jarvis.tasks.TaskList;
 
@@ -17,15 +18,17 @@ public class Jarvis {
     private TaskList taskList;
     private Ui ui;
     private Storage storage;
+    private Reminder reminder;
 
     /**
      * Constructor for Jarvis class.
      */
     public Jarvis() {
-        taskList = new TaskList();
-        ui = new Ui();
-        storage = new Storage();
+        this.taskList = new TaskList();
+        this.ui = new Ui();
+        this.storage = new Storage();
         taskList.setTasks(storage.loadTasks());
+        this.reminder = new Reminder(taskList);
     }
 
     /**

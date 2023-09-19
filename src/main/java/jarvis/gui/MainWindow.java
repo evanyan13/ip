@@ -1,8 +1,12 @@
 package jarvis.gui;
 
 import jarvis.Jarvis;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -14,6 +18,7 @@ import javafx.scene.layout.VBox;
  * elements and their interactions with the Jarvis chatbot.
  */
 public class MainWindow extends AnchorPane {
+    private static StringProperty reminderMessage = new SimpleStringProperty("");
 
     @FXML
     private ScrollPane scrollPane;
@@ -23,6 +28,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private Label reminderLabel;
 
     private Jarvis jarvis = new Jarvis();
     private Ui ui = new Ui();
@@ -68,5 +75,10 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
                 DialogBox.getJarvisDialog(response, jarvisImage));
         userInput.clear();
+    }
+
+    @FXML
+    public static void setReminderMessage(String message) {
+        Platform.runLater(() -> reminderMessage.set(message));
     }
 }
